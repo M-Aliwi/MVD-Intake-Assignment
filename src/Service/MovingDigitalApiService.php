@@ -175,13 +175,25 @@ class MovingDigitalApiService
                 'message' => $e->getMessage(),
             ]);
             
-            // Simulate status check for development
-            $statuses = ['pending', 'accepted', 'rejected'];
-            $status = $statuses[array_rand($statuses)];
+            // Deterministic mock status based on external ID hash
+            // This ensures the same external ID always returns the same status
+            $hash = crc32($externalId);
+            $modValue = abs($hash % 100);
+            
+            // 60% chance accepted, 30% pending, 10% rejected
+            // But only if more than 2 minutes have passed
+            if ($modValue < 60) {
+                $status = 'accepted';
+            } elseif ($modValue < 90) {
+                $status = 'pending';
+            } else {
+                $status = 'rejected';
+            }
             
             $this->logger->info('Mock status check response', [
                 'external_id' => $externalId,
                 'status' => $status,
+                'hash_mod' => $modValue,
             ]);
             
             return [

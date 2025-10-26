@@ -65,6 +65,18 @@ class OfferController extends AbstractController
             return $this->json(['error' => 'Bod niet gevonden.'], 404);
         }
 
+        // Automatically check and update status from API if offer has external ID
+        if ($offer->getExternalId() && $offer->getStatus() === 'pending') {
+            try {
+                $this->offerService->updateOfferStatus($offer);
+                // Reload the offer to get the updated status
+                $offer = $this->offerService->getOfferById($id);
+            } catch (\Exception $e) {
+                // Log error but don't fail the request
+                error_log('Failed to update offer status: ' . $e->getMessage());
+            }
+        }
+
         return $this->json([
             'id' => $offer->getId(),
             'status' => $offer->getStatus(),
