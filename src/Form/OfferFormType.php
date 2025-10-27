@@ -19,15 +19,27 @@ class OfferFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Naam',
+            ->add('firstname', TextType::class, [
+                'label' => 'Voornaam',
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Naam is verplicht.']),
+                    new Assert\NotBlank(['message' => 'Voornaam is verplicht.']),
                     new Assert\Length([
                         'min' => 2,
-                        'max' => 255,
-                        'minMessage' => 'Naam moet minimaal {{ limit }} karakters bevatten.',
-                        'maxMessage' => 'Naam mag maximaal {{ limit }} karakters bevatten.',
+                        'max' => 100,
+                        'minMessage' => 'Voornaam moet minimaal {{ limit }} karakters bevatten.',
+                        'maxMessage' => 'Voornaam mag maximaal {{ limit }} karakters bevatten.',
+                    ]),
+                ],
+            ])
+            ->add('lastname', TextType::class, [
+                'label' => 'Achternaam',
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'Achternaam is verplicht.']),
+                    new Assert\Length([
+                        'min' => 2,
+                        'max' => 100,
+                        'minMessage' => 'Achternaam moet minimaal {{ limit }} karakters bevatten.',
+                        'maxMessage' => 'Achternaam mag maximaal {{ limit }} karakters bevatten.',
                     ]),
                 ],
             ])

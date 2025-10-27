@@ -36,10 +36,21 @@
 
         {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
         
-        <div class="form-floating">
-            {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Uw volledige naam'}}) }}
-            {{ form_label(form.name) }}
-            {{ form_errors(form.name) }}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'placeholder': 'Voornaam'}}) }}
+                    {{ form_label(form.firstname) }}
+                    {{ form_errors(form.firstname) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    {{ form_widget(form.lastname, {'attr': {'class': 'form-control', 'placeholder': 'Achternaam'}}) }}
+                    {{ form_label(form.lastname) }}
+                    {{ form_errors(form.lastname) }}
+                </div>
+            </div>
         </div>
 
         <div class="form-floating">

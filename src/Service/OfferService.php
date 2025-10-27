@@ -32,7 +32,8 @@ class OfferService
 
             $this->logger->info('Offer saved to database', [
                 'offer_id' => $offer->getId(),
-                'name' => $offer->getName(),
+                'firstname' => $offer->getFirstname(),
+                'lastname' => $offer->getLastname(),
                 'email' => $offer->getEmail(),
             ]);
 
@@ -177,13 +178,11 @@ class OfferService
     private function prepareApiData(Offer $offer): array
     {
         return [
-            'property_id' => $offer->getPropertyId(),
-            'name' => $offer->getName(),
+            'firstname' => $offer->getFirstname(),
+            'lastname' => $offer->getLastname(),
             'email' => $offer->getEmail(),
             'phone' => $offer->getPhone(),
-            'amount' => (float) $offer->getAmount(),
-            'conditions' => $offer->getConditions(),
-            'submitted_at' => $offer->getCreatedAt()->format('c'),
+            'amount' => (int) $offer->getAmount(), // API expects integer
         ];
     }
 }

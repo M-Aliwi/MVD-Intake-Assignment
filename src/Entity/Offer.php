@@ -22,8 +22,11 @@ class Offer
     #[ORM\Column(name: 'property_id', type: Types::STRING, length: 255)]
     private string $propertyId;
 
-    #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $name;
+    #[ORM\Column(type: Types::STRING, length: 100)]
+    private string $firstname;
+
+    #[ORM\Column(type: Types::STRING, length: 100)]
+    private string $lastname;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     private string $email;
@@ -90,15 +93,31 @@ class Offer
         return $this;
     }
 
-    public function getName(): string
+    public function getFirstname(): string
     {
-        return $this->name;
+        return $this->firstname;
     }
 
-    public function setName(string $name): self
+    public function setFirstname(string $firstname): self
     {
-        $this->name = $name;
+        $this->firstname = $firstname;
         return $this;
+    }
+
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     public function getEmail(): string
